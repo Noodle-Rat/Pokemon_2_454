@@ -1,0 +1,53 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Styling for headers */
+h1 {
+    color: #0056b3;
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Image styling */
+img {
+    width: 300px; /* Display a larger image */
+    display: block;
+    margin: 20px auto; /* Center the image */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow for depth */
+}
+
+/* Container styling */
+div#cardDetails {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Attribute styling for better readability and structure */
+.attribute {
+    margin: 15px auto;
+    font-size: 18px;
+    padding: 10px;
+    border-bottom: 1px solid #eee; /* Adds a subtle line between entries */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    img {
+        width: 90%; /* Adjust image size on smaller screens */
+    }
+
+    h1 {
+        font-size: 2em; /* Adjust heading size on smaller screens */
+    }
+}

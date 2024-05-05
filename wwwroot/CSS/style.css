@@ -1,0 +1,136 @@
+﻿/* Basic reset for padding and margins */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif; /* Provides a modern sans-serif font */
+    background-color: #f4f4f9; /* Light grey background for a soft design */
+    color: #333; /* Dark grey text for readability */
+    line-height: 1.6; /* Improves readability */
+    padding: 20px; /* Adds spacing around the content */
+}
+
+header {
+    background-color: #004aad; /* A strong blue header for brand color */
+    color: #fff; /* White text for contrast */
+    padding: 10px 20px; /* Padding inside the header */
+    text-align: center; /* Centers the header text */
+}
+
+section {
+    margin: 20px 0; /* Adds vertical spacing between sections */
+    background: #fff; /* White background for content sections */
+    padding: 20px; /* Padding inside sections */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+h1, h2 {
+    color: #004aad; /* Keeps the header colors consistent */
+}
+
+.search-form {
+    display: flex; /* Ensures everything in the search form is lined up in a row */
+    flex-wrap: wrap; /* Allows items to wrap onto the next line if the screen is too small */
+    gap: 10px; /* Provides spacing between the elements */
+    justify-content: center; /* Centers the items horizontally */
+    align-items: center; /* Aligns items vertically to the middle */
+    padding: 10px 0; /* Adds vertical padding inside the form area */
+}
+
+#searchQuery {
+    flex-grow: 1; /* Allows the search input to grow and fill available space */
+    padding: 8px; /* Padding inside the input for better touch */
+    border: 2px solid #ccc; /* Subtle border for the input */
+    border-radius: 4px; /* Rounded corners for the input */
+}
+
+button {
+    background-color: #006633; /* Green background for buttons */
+    color: #ffffff; /* White text on buttons for contrast */
+    border: none; /* Removes default button border */
+    padding: 10px 15px; /* Padding inside buttons */
+    border-radius: 4px; /* Rounded borders for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background 0.3s; /* Smooth transition for hover effect */
+}
+
+    button:hover {
+        background-color: #004aad; /* Blue on hover for visual feedback */
+    }
+
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px; /* Space between grid items */
+    margin-top: 20px; /* Adds space above the results section */
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff; /* White background for cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+}
+
+    .card img {
+        width: 100%; /* Full width of the card */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .card h4 {
+        margin: 10px 0; /* Space above and below the title */
+    }
+
+.dropdown-container {
+    display: flex; /* Enables a flexbox display to align child elements */
+    flex-wrap: wrap; /* Allows elements to wrap if there isn't enough space */
+    gap: 10px; /* Spacing between dropdowns */
+    justify-content: center; /* Center align the dropdowns */
+    align-items: center; /* Vertically aligns the dropdowns to the middle */
+    margin-top: 10px; /* Adds a little space above the dropdowns if they wrap */
+}
+
+.custom-dropdown {
+    position: relative;
+    width: 200px;
+    cursor: pointer;
+    flex-grow: 1; /* Allows the dropdowns to grow and fill the space if needed */
+}
+
+.dropdown-selected {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content label {
+        display: block;
+        padding: 5px 10px;
+    }
+
+        .dropdown-content label:hover {
+            background-color: #f1f1f1;
+        }
+
+@media (max-width: 600px) {
+    .dropdown-container {
+        flex-direction: column; /* Stacks dropdowns vertically on smaller screens */
+    }
+
+    .search-form, .filter {
+        flex-direction: column; /* Stacks the form items under each other on small screens */
+    }
+}
