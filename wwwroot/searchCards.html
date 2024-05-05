@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon TCG Card Search</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+    <header>
+        <h1>Pokémon TCG Card Search</h1>
+    </header>
+
+    <section>
+        <h2>Search Parameters</h2>
+        <div class="search-form">
+            <input type="text" id="searchQuery" placeholder="Enter card name or search query">
+            <div class="dropdown-container">
+                <div id="typeFilter"></div>
+                <div id="subtypeFilter"></div>
+                <div id="rarityFilter"></div>
+                <div id="supertypeFilter"></div>
+            </div>
+            <button onclick="performSearch()">Search</button>
+        </div>
+        <!-- Adding Sorting Controls -->
+        <div class="sorting-controls">
+            <label for="sortBy">Sort by:</label>
+            <select id="sortBy">
+                <option value="type-asc">Type (A-Z)</option>
+                <option value="type-desc">Type (Z-A)</option>
+                <option value="subtype-asc">Subtype (A-Z)</option>
+                <option value="subtype-desc">Subtype (Z-A)</option>
+                <option value="hp-asc">HP (Low-High)</option>
+                <option value="hp-desc">HP (High-Low)</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="level-asc">Level (A-Z)</option>
+                <option value="level-desc">Level (Z-A)</option>
+                <option value="set-asc">Set (A-Z)</option>
+                <option value="set-desc">Set (Z-A)</option>
+            </select>
+        </div>
+    </section>
+
+    <section id="results">
+        <h2>Results</h2>
+        <!-- Results will be dynamically populated here -->
+    </section>
+
+    <script src="JS/searchScriptJS.js" async></script>
+    <script src="JS/filter.js" async></script>
+</body>
+</html>

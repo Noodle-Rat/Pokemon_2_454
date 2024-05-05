@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Card Collection</title>
+    <link rel="stylesheet" href="CSS/cardCollectionsStyle.css">
+
+</head>
+<body>
+
+    <h1>Your Card Collection</h1>
+    <section>
+        <div class="sorting-controls">
+            <label for="sortBy">Sort by:</label>
+            <select id="sortBy">
+                <option value="type-asc">Type (A-Z)</option>
+                <option value="type-desc">Type (Z-A)</option>
+                <option value="subtype-asc">Subtype (A-Z)</option>
+                <option value="subtype-desc">Subtype (Z-A)</option>
+                <option value="hp-asc">HP (Low-High)</option>
+                <option value="hp-desc">HP (High-Low)</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="level-asc">Level (A-Z)</option>
+                <option value="level-desc">Level (Z-A)</option>
+                <option value="set-asc">Set (A-Z)</option>
+                <option value="set-desc">Set (Z-A)</option>
+            </select>
+        </div>
+    </section>
+    <div id="cardCollectionContainer"></div>
+
+    <script src="JS/cardCollectionsJS.js"></script>
+</body>
+</html>

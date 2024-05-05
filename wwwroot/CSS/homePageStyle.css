@@ -1,0 +1,90 @@
+﻿/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #d32f2f; /* Matches the Pokémon theme */
+    color: white;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+header {
+    margin-bottom: 20px; /* Provides space below the header */
+}
+
+.header-logo {
+    width: 80%; /* Adjusts the logo size */
+    max-width: 600px; /* Ensures the logo is not too large on bigger screens */
+    margin: 0 auto; /* Centers the logo horizontally */
+    display: block; /* Ensures the image is block level to allow for margin auto */
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button {
+    background-color: #004aad; /* Blue background for buttons */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    button:hover {
+        background-color: #003388; /* Darker blue on hover for visual feedback */
+    }
+
+#results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px; /* Space between grid items */
+    margin-top: 20px; /* Adds space above the results section */
+}
+
+.card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff; /* White background for cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+}
+
+    .card img {
+        width: 100%; /* Full width of the card */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .card h4 {
+        margin: 10px 0; /* Space above and below the title */
+    }
+
+@media (max-width: 600px) {
+    .header-logo {
+        width: 95%; /* Larger size for smaller screens */
+    }
+
+    .search-form, .button-container, .sorting-controls {
+        flex-direction: column; /* Stacks form and buttons vertically on small screens */
+    }
+}

@@ -4,76 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Card Details</title>
-    <link rel="stylesheet" href="CSS/CardDetailsStyle.css">
+    <link rel="stylesheet" href="CSS/cardDetailsStyle.css">
 </head>
 <body>
     <div id="cardDetails"></div>
     <button id="addToCollectionBtn">Add to Collection</button>
 
-    <script>
-        // Assuming you have a secure way to store and retrieve the userToken
-        /*const userToken = localStorage.getItem('userToken');*/
-        const userToken = 'admin'
-
-        window.onload = function () {
-            const params = new URLSearchParams(window.location.search);
-            const card = JSON.parse(decodeURIComponent(params.get('card')));
-
-            const detailsContainer = document.getElementById('cardDetails');
-            const attacks = card.attacks ? card.attacks.map(attack => `${attack.name} - Damage: ${attack.damage}, Cost: ${attack.cost.join(', ')}`).join('<br>') : 'No Attacks';
-            const weaknesses = card.weaknesses ? card.weaknesses.map(weakness => `${weakness.type} - Value: ${weakness.value}`).join('<br>') : 'No Weaknesses';
-            const resistances = card.resistances ? card.resistances.map(resistance => `${resistance.type} - Value: ${resistance.value}`).join('<br>') : 'No Resistances';
-            const abilities = card.abilities ? card.abilities.map(ability => `${ability.name} - Type: ${ability.type}, Text: ${ability.text}`).join('<br>') : 'No Abilities';
-
-            detailsContainer.innerHTML = `
-                    <img src="${card.images.large}" alt="Image of ${card.name}">
-                    <h1>${card.name}</h1>
-                    <p class="attribute"><strong>Supertype:</strong> ${card.supertype || 'N/A'}</p>
-                    <p class="attribute"><strong>Subtypes:</strong> ${card.subtypes ? card.subtypes.join(', ') : 'N/A'}</p>
-                    <p class="attribute"><strong>HP:</strong> ${card.hp || 'N/A'}</p>
-                    <p class="attribute"><strong>Types:</strong> ${card.types ? card.types.join(', ') : 'N/A'}</p>
-                    <p class="attribute"><strong>Attacks:</strong> <br>${attacks}</p>
-                    <p class="attribute"><strong>Weaknesses:</strong> <br>${weaknesses}</p>
-                    <p class="attribute"><strong>Resistances:</strong> <br>${resistances}</p>
-                    <p class="attribute"><strong>Abilities:</strong> <br>${abilities}</p>
-                    <p class="attribute"><strong>Set:</strong> ${card.set.name}</p>
-                    <p class="attribute"><strong>Rarity:</strong> ${card.rarity || 'N/A'}</p>
-                `;
-
-            document.getElementById('addToCollectionBtn').onclick = function () {
-                addToCollection(card.id);
-            };
-        };
-
-        function addToCollection(cardId) {
-            if (!userToken) {
-                alert('You are not logged in.');
-                return;
-            }
-
-            fetch('/api/collections/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + userToken
-                },
-                body: JSON.stringify({ cardId: cardId })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Card added to your collection!');
-                        window.location.href = 'collections.html'; // Adjust the URL as necessary
-                    } else {
-                        alert('Failed to add card to collection.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while adding the card to your collection.');
-                });
-        }
-    </script>
-
+    <script src="JS/cardDetailsJS.js" async></script>
+    <script src="JS/filter.js" async></script>
 </body>
 </html>

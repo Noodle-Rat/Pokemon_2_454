@@ -8,7 +8,6 @@ function getSelectedOptions(containerId) {
     return values.map(value => encodeURIComponent(value)).join(' OR ');
 }
 
-
 // Fetch card data with filters
 function performSearch() {
     const queryInput = document.getElementById('searchQuery').value.trim();
@@ -35,7 +34,6 @@ function performSearch() {
         .then(data => displayResults(data.data, 'results'))
         .catch(handleError);
 }
-
 
 // Handle fetch responses
 function handleResponse(response) {
@@ -81,8 +79,6 @@ function displayResults(cards, containerId) {
     }
 }
 
-
-
 function handleError(error) { // Generic error handler
     console.error('Error:', error);
     const resultsContainer = document.getElementById('results');
@@ -92,7 +88,6 @@ function toggleDropdown(dropdownId) {
     var dropdown = document.getElementById(dropdownId);
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
-
 
 document.addEventListener('click', function (event) {
     var closestDropdown = event.target.closest('.custom-dropdown');
@@ -122,8 +117,6 @@ function updateSelectedItems(checkbox) {
 
     selectedDisplay.textContent = selectedItems.join(', ') || 'Select Type';
 }
-
-
 
 
 const types = ["Colorless", "Darkness", "Dragon", "Fairy", "Fighting", "Fire", "Grass", "Lightning", "Metal", "Psychic", "Water"];
@@ -168,3 +161,4 @@ document.addEventListener('DOMContentLoaded', function () {
     createDropdown(rarities, 'rarityFilter', 'Rarity');
     createDropdown(supertypes, 'supertypeFilter', 'Supertype');
 });
+
