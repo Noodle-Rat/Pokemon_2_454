@@ -11,30 +11,37 @@ window.onload = function () {
     const abilities = card.abilities ? card.abilities.map(ability => `${ability.name} - Type: ${ability.type}, Text: ${ability.text}`).join('<br>') : 'No Abilities';
     const retreatCost = card.retreatCost ? card.retreatCost.join(', ') : 'N/A';
 
+    // Structuring the innerHTML to fit the flexbox layout
     detailsContainer.innerHTML = `
-    <img src="${card.images.large}" alt="Image of ${card.name}">
-    <p class="attribute"><strong>ID:</strong> ${card.id}</p>
-    <h1>${card.name}</h1>
-    <p class="attribute"><strong>Supertype:</strong> ${card.supertype || 'N/A'}</p>
-    <p class="attribute"><strong>Subtypes:</strong> ${card.subtypes ? card.subtypes.join(', ') : 'N/A'}</p>
-    <p class="attribute"><strong>Level:</strong> ${card.level || 'N/A'}</p>
-    <p class="attribute"><strong>HP:</strong> ${card.hp || 'N/A'}</p>
-    <p class="attribute"><strong>Types:</strong> ${card.types ? card.types.join(', ') : 'N/A'}</p>
-    <p class="attribute"><strong>Evolves From:</strong> ${card.evolvesFrom || 'N/A'}</p>
-    <p class="attribute"><strong>Evolves To:</strong> ${card.evolvesTo ? card.evolvesTo.join(', ') : 'N/A'}</p>
-    <p class="attribute"><strong>Attacks:</strong> <br>${attacks}</p>
-    <p class="attribute"><strong>Weaknesses:</strong> <br>${weaknesses}</p>
-    <p class="attribute"><strong>Resistances:</strong> <br>${resistances}</p>
-    <p class="attribute"><strong>Abilities:</strong> <br>${abilities}</p>
-    <p class="attribute"><strong>Retreat Cost:</strong> ${retreatCost} (Converted Cost: ${card.convertedRetreatCost})</p>
-    <p class="attribute"><strong>Set:</strong> ${card.set.name}</p>
-    <p class="attribute"><strong>Number:</strong> ${card.number}</p>
-    <p class="attribute"><strong>Artist:</strong> ${card.artist}</p>
-    <p class="attribute"><strong>Rarity:</strong> ${card.rarity || 'N/A'}</p>
-    <p class="attribute"><strong>Flavor Text:</strong> ${card.flavorText || 'N/A'}</p>
-    <p class="attribute"><strong>Legalities:</strong> Standard: ${card.legalities.standard || 'N/A'}, Expanded: ${card.legalities.expanded || 'N/A'}, Unlimited: ${card.legalities.unlimited || 'N/A'}</p>
-    <p class="attribute"><strong>Regulation Mark:</strong> ${card.regulationMark || 'N/A'}</p>
+    <div class="card-image">
+        <img src="${card.images.large}" alt="Image of ${card.name}">
+        <p class="card-id"><strong>ID:</strong> ${card.id}</p>
+    </div>
+    <div class="card-info">
+        <h1>${card.name}</h1>
+        <p><strong>Supertype:</strong> ${card.supertype || 'N/A'}</p>
+        <p><strong>Subtypes:</strong> ${card.subtypes ? card.subtypes.join(', ') : 'N/A'}</p>
+        <p><strong>Level:</strong> ${card.level || 'N/A'}</p>
+        <p><strong>HP:</strong> ${card.hp || 'N/A'}</p>
+        <p><strong>Types:</strong> ${card.types ? card.types.join(', ') : 'N/A'}</p>
+        <p><strong>Evolves From:</strong> ${card.evolvesFrom || 'N/A'}</p>
+        <p><strong>Evolves To:</strong> ${card.evolvesTo ? card.evolvesTo.join(', ') : 'N/A'}</p>
+        <p><strong>Attacks:</strong> <br>${attacks}</p>
+        <p><strong>Weaknesses:</strong> <br>${weaknesses}</p>
+        <p><strong>Resistances:</strong> <br>${resistances}</p>
+        <p><strong>Abilities:</strong> <br>${abilities}</p>
+        <p><strong>Retreat Cost:</strong> ${retreatCost} (Converted Cost: ${card.convertedRetreatCost})</p>
+        <p><strong>Set:</strong> ${card.set.name}</p>
+        <p><strong>Number:</strong> ${card.number}</p>
+        <p><strong>Artist:</strong> ${card.artist}</p>
+        <p><strong>Rarity:</strong> ${card.rarity || 'N/A'}</p>
+        <p><strong>Flavor Text:</strong> ${card.flavorText || 'N/A'}</p>
+        <p><strong>Legalities:</strong> Standard: ${card.legalities.standard || 'N/A'}, Expanded: ${card.legalities.expanded || 'N/A'}, Unlimited: ${card.legalities.unlimited || 'N/A'}</p>
+        <p><strong>Regulation Mark:</strong> ${card.regulationMark || 'N/A'}</p>
+    </div>
 `;
+
+
 
 /*    console.log("Card ID:", card.id); // Should log the card ID
 

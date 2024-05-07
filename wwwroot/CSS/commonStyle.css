@@ -1,0 +1,52 @@
+﻿/* Common styles for all buttons */
+button {
+    background-color: #007BFF; /* Blue shade, consider changing per theme */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+    button:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+/* Input styling */
+input[type="text"], input[type="password"], input[type="email"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Makes sure the width is set properly */
+}
+
+/* Label styling */
+label {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Form container improvements */
+.login-container, .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    button {
+        padding: 8px 16px;
+    }
+
+    .login-container, .button-container {
+        flex-direction: column;
+    }
+}

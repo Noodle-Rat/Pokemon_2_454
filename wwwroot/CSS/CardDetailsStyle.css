@@ -1,53 +1,91 @@
-﻿body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
+﻿/* Basic body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #E0F7FA; /* Light icy blue background */
+    color: #333; /* Dark grey for text */
     line-height: 1.6;
-    margin: 0;
     padding: 20px;
 }
 
-/* Styling for headers */
-h1 {
-    color: #0056b3;
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
+/* Container for card details, using flexbox for layout */
+#cardDetails {
+    position: relative; /* Relative positioning for absolute child elements */
+    display: flex;
+    background-color: #FFFFFF; /* White background for contrast */
+    border: 1px solid #ccc; /* Subtle border */
+    padding: 20px; /* Padding inside the box */
+    margin-bottom: 20px; /* Space below the container */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: flex-start; /* Align items to the top */
 }
 
-/* Image styling */
-img {
-    width: 300px; /* Display a larger image */
-    display: block;
-    margin: 20px auto; /* Center the image */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow for depth */
+/* Styling for the image container */
+.card-image {
+    flex: 1 1 50%; /* Flex property to allocate half the space */
+    padding-right: 20px; /* Spacing between image and details */
 }
 
-/* Container styling */
-div#cardDetails {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    margin-top: 20px;
+.card-image img {
+    width: 100%; /* Responsive image size */
+    height: auto;
+    display: block; /* Ensures it takes up the full width of its container */
 }
 
-/* Attribute styling for better readability and structure */
-.attribute {
-    margin: 15px auto;
-    font-size: 18px;
-    padding: 10px;
-    border-bottom: 1px solid #eee; /* Adds a subtle line between entries */
+/* ID directly below the image */
+.card-id {
+    text-align: center; /* Center-align the ID text */
+    padding-top: 10px; /* Space above the ID */
+    color: #777; /* Lighter grey for the ID */
 }
 
-/* Responsive adjustments */
+/* Container for text details */
+.card-info {
+    flex: 1 1 50%; /* Flex property to allocate the other half of the space */
+}
+
+/* Heading styles */
+#cardDetails h1, #cardDetails h2, #cardDetails h3 {
+    color: #3B4CCA; /* Pokémon blue for headings */
+}
+
+/* Paragraph styles */
+#cardDetails p {
+    margin: 10px 0; /* Spacing for paragraphs */
+    color: #555; /* Slightly lighter text for readability */
+}
+
+/* Button styling, now with absolute positioning adjusted */
+#addToCollectionBtn {
+    position: relative; /* Absolute positioning */
+    background-color: #007AFF; /* Bright blue for primary actions */
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0; /* Adjust border-radius for alignment */
+    cursor: pointer;
+    transition: background 0.3s;
+    margin: 1px; /* Slight margin to account for the border */
+}
+
+#addToCollectionBtn:hover {
+    background-color: #005ACB; /* Deeper blue on hover */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
-    img {
-        width: 90%; /* Adjust image size on smaller screens */
+    #cardDetails {
+        flex-direction: column; /* Stack elements vertically on smaller screens */
     }
 
-    h1 {
-        font-size: 2em; /* Adjust heading size on smaller screens */
+    .card-image, .card-info {
+        flex: 1 1 100%; /* Flex properties to make image and info take full width */
+        padding-right: 0; /* Remove padding on smaller screens */
+    }
+
+    #addToCollectionBtn {
+        width: 100%; /* Full width button on smaller screens */
+        position: static; /* Remove absolute positioning for better mobile layout */
+        border-radius: 4px; /* Restore border-radius for mobile view */
     }
 }
