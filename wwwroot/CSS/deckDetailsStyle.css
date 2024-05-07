@@ -6,26 +6,12 @@ body {
     color: #333;
 }
 
-/* Grid setup for cards and decks */
-#cardCollectionContainer, #decksContainer {
+/* Grid setup for cards */
+#deckCardsContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
-}
-
-/* Styling for decks section */
-#decksContainer {
-    background-color: #e0e0e0; /* Light grey background for decks section */
-    margin-bottom: 20px; /* Space between decks and cards */
-}
-
-.deck {
-    border: 1px solid #ccc; /* Subtle border for each deck */
-    padding: 10px;
-    border-radius: 8px;
-    background-color: white; /* White background for contrast */
-    text-align: center; /* Center the deck name text */
 }
 
 /* Individual card styling */

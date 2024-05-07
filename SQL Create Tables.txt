@@ -1,0 +1,49 @@
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+    Username VARCHAR(255) NOT NULL UNIQUE,
+    PasswordHash VARBINARY(256),  -- Storing password hash
+    FirstName VARCHAR(255),
+    LastName VARCHAR(255),
+    Email VARCHAR(255) NOT NULL UNIQUE
+);
+CREATE TABLE Cards (
+    CardID VARCHAR(255) PRIMARY KEY,
+    Name VARCHAR(255),
+    Supertype VARCHAR(100),
+    Subtypes VARCHAR(255),  -- Comma-separated if multiple
+    Level VARCHAR(50),
+    HP INT,
+    Types VARCHAR(100),  -- Comma-separated if multiple
+    EvolvesFrom VARCHAR(255),
+    EvolvesTo VARCHAR(255),  -- Comma-separated if multiple
+    Abilities TEXT,  -- JSON or similar format
+    Attacks TEXT,  -- JSON or similar format
+    Weaknesses TEXT,
+    Resistances TEXT,
+    RetreatCost TEXT,
+    SetName VARCHAR(255),
+    SetSeries VARCHAR(255),
+    Number VARCHAR(50),
+    Artist VARCHAR(255),
+    Rarity VARCHAR(100),
+    FlavorText TEXT,
+    Legalities TEXT,
+    RegulationMark VARCHAR(50),
+    ImageURL VARCHAR(255)
+);
+CREATE TABLE Decks (
+    DeckID INT PRIMARY KEY IDENTITY(1,1),
+    UserID INT FOREIGN KEY REFERENCES Users(UserID),
+    DeckName VARCHAR(255)
+);
+CREATE TABLE UserCards (
+    UserID INT FOREIGN KEY REFERENCES Users(UserID),
+    CardID VARCHAR(255) FOREIGN KEY REFERENCES Cards(CardID),
+    Quantity INT DEFAULT 1,  -- How many of this card the user owns
+    PRIMARY KEY (UserID, CardID)
+);
+CREATE TABLE DeckCards (
+    DeckID INT FOREIGN KEY REFERENCES Decks(DeckID),
+    CardID VARCHAR(255) FOREIGN KEY REFERENCES Cards(CardID),
+    PRIMARY KEY (DeckID, CardID)
+);

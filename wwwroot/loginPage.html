@@ -9,7 +9,7 @@
 <body>
     <div class="login-container">
         <div class="login-form">
-            <form action="/login" method="post">
+            <form id="loginForm">
                 <h2>Login to Your Account</h2>
                 <div class="input-group">
                     <label for="username">Username:</label>
@@ -20,9 +20,10 @@
                     <input type="password" id="password" name="password" required>
                 </div>
                 <button type="submit">Login</button>
-                <button onclick="window.location.href='registrationPage.html';">Register</button>
+                <button type="button" onclick="window.location.href='registrationPage.html';">Register</button>
             </form>
         </div>
     </div>
+    <script src="JS/loginPageJS.js"></script>
 </body>
 </html>

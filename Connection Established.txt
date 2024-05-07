@@ -1,0 +1,120 @@
+A connection was successfully established with the server, but then an error occurred during the login process. (provider: SSL Provider, error: 0 - The certificate chain was issued by an authority that is not trusted.)
+PM> Add-Migration InitialCreate
+Build started...
+Build succeeded.
+The name 'InitialCreate' is used by an existing migration.
+PM> Update-Database
+Build started...
+Build succeeded.
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [__EFMigrationsHistory] (
+          [MigrationId] nvarchar(150) NOT NULL,
+          [ProductVersion] nvarchar(32) NOT NULL,
+          CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+      );
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [MigrationId], [ProductVersion]
+      FROM [__EFMigrationsHistory]
+      ORDER BY [MigrationId];
+Microsoft.EntityFrameworkCore.Migrations[20402]
+      Applying migration '20240506225209_InitialCreate'.
+Applying migration '20240506225209_InitialCreate'.
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Cards] (
+          [CardId] nvarchar(450) NOT NULL,
+          [Name] nvarchar(max) NOT NULL,
+          [Supertype] nvarchar(max) NOT NULL,
+          [Subtypes] nvarchar(max) NOT NULL,
+          [Level] nvarchar(max) NOT NULL,
+          [Hp] int NOT NULL,
+          [Types] nvarchar(max) NOT NULL,
+          [EvolvesFrom] nvarchar(max) NOT NULL,
+          [EvolvesTo] nvarchar(max) NOT NULL,
+          [Abilities] nvarchar(max) NOT NULL,
+          [Attacks] nvarchar(max) NOT NULL,
+          [Weaknesses] nvarchar(max) NOT NULL,
+          [Resistances] nvarchar(max) NOT NULL,
+          [RetreatCost] nvarchar(max) NOT NULL,
+          [SetName] nvarchar(max) NOT NULL,
+          [SetSeries] nvarchar(max) NOT NULL,
+          [Number] nvarchar(max) NOT NULL,
+          [Artist] nvarchar(max) NOT NULL,
+          [Rarity] nvarchar(max) NOT NULL,
+          [FlavorText] nvarchar(max) NOT NULL,
+          [Legalities] nvarchar(max) NOT NULL,
+          [RegulationMark] nvarchar(max) NOT NULL,
+          [ImageUrl] nvarchar(max) NOT NULL,
+          CONSTRAINT [PK_Cards] PRIMARY KEY ([CardId])
+      );
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Users] (
+          [UserId] int NOT NULL IDENTITY,
+          [Username] nvarchar(max) NOT NULL,
+          [PasswordHash] varbinary(max) NOT NULL,
+          [FirstName] nvarchar(max) NOT NULL,
+          [LastName] nvarchar(max) NOT NULL,
+          [Email] nvarchar(max) NOT NULL,
+          CONSTRAINT [PK_Users] PRIMARY KEY ([UserId])
+      );
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Decks] (
+          [DeckId] int NOT NULL IDENTITY,
+          [UserId] int NOT NULL,
+          [DeckName] nvarchar(max) NOT NULL,
+          CONSTRAINT [PK_Decks] PRIMARY KEY ([DeckId]),
+          CONSTRAINT [FK_Decks_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Users] ([UserId]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [UserCards] (
+          [UserId] int NOT NULL,
+          [CardId] nvarchar(450) NOT NULL,
+          [Quantity] int NOT NULL,
+          CONSTRAINT [PK_UserCards] PRIMARY KEY ([UserId], [CardId]),
+          CONSTRAINT [FK_UserCards_Cards_CardId] FOREIGN KEY ([CardId]) REFERENCES [Cards] ([CardId]) ON DELETE CASCADE,
+          CONSTRAINT [FK_UserCards_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Users] ([UserId]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [DeckCards] (
+          [DeckId] int NOT NULL,
+          [CardId] nvarchar(450) NOT NULL,
+          CONSTRAINT [PK_DeckCards] PRIMARY KEY ([DeckId], [CardId]),
+          CONSTRAINT [FK_DeckCards_Cards_CardId] FOREIGN KEY ([CardId]) REFERENCES [Cards] ([CardId]) ON DELETE CASCADE,
+          CONSTRAINT [FK_DeckCards_Decks_DeckId] FOREIGN KEY ([DeckId]) REFERENCES [Decks] ([DeckId]) ON DELETE CASCADE
+      );
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_DeckCards_CardId] ON [DeckCards] ([CardId]);
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_Decks_UserId] ON [Decks] ([UserId]);
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX [IX_UserCards_CardId] ON [UserCards] ([CardId]);
+Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+      VALUES (N'20240506225209_InitialCreate', N'7.0.0');
+Done.
+PM> 

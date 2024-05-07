@@ -1,62 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Text.Json;
-using WeatherApp;
-
-namespace WeatherApp.Models;
-
-public class Card {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Supertype { get; set; }
-    public List<string> Subtypes { get; set; }
-    public string Level { get; set; }
-    public int Hp { get; set; }
-    public List<string> Types { get; set; }
-    public string EvolvesFrom { get; set; }
-    public List<Attack> Attacks { get; set; }
-    public List<string> RetreatCost { get; set; }
-    public int ConvertedRetreatCost { get; set; }
-    public Set Set { get; set; }
-    public string Number { get; set; }
-    public string Artist { get; set; }
-    public string Rarity { get; set; }
-    public List<int> NationalPokedexNumbers { get; set; }
-    public Legalities Legalities { get; set; }
-    public List<string> EvolvesTo { get; set; }
-    public string FlavorText { get; set; }
-    public List<string> Rules { get; set; }
-    public string RegulationMark { get; set; }
-}
-
-    public class Attack
+﻿namespace WeatherApp.Models
+{
+    public class Card
     {
-        public List<string> Cost { get; set; }
+        public string CardId { get; set; }
         public string Name { get; set; }
-        public string Text { get; set; }
-        public string Damage { get; set; }
-        public int ConvertedEnergyCost { get; set; }
-    }
-
-    public class Set
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Series { get; set; }
-        public int PrintedTotal { get; set; }
-        public int Total { get; set; }
+        public string Supertype { get; set; }
+        public string Subtypes { get; set; } // Stored as a comma-separated string
+        public string Level { get; set; }
+        public int Hp { get; set; }
+        public string Types { get; set; } // Stored as a comma-separated string
+        public string EvolvesFrom { get; set; }
+        public string EvolvesTo { get; set; } // Stored as a comma-separated string
+        public string Abilities { get; set; } // JSON or other serialization format
+        public string Attacks { get; set; } // JSON or other serialization format
+        public string Weaknesses { get; set; }
+        public string Resistances { get; set; }
+        public string RetreatCost { get; set; }
+        public string SetName { get; set; }
+        public string SetSeries { get; set; }
+        public string Number { get; set; }
+        public string Artist { get; set; }
+        public string Rarity { get; set; }
+        public string FlavorText { get; set; }
         public string Legalities { get; set; }
-        public Images SetImages { get; set; }
-    }
+        public string RegulationMark { get; set; }
+        public string ImageUrl { get; set; }
 
-    public class Images
-    {
-        public string Small { get; set; }
-        public string Large { get; set; }
+        // Navigation properties
+        public List<DeckCard> DeckCards { get; set; }
+        public List<UserCard> UserCards { get; set; }
     }
-
-    public class Legalities
-    {
-        public string Unlimited { get; set; }
-        public string Standard { get; set; }
-        public string Expanded { get; set; }
-    }
+} 

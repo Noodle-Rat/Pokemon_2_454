@@ -59,9 +59,65 @@
         cardCollectionContainer.innerHTML = '<p>No cards in your collection.</p>';
     }
 };
+
 function toggleDetails(detailsElement) {
     const display = detailsElement.style.display;
     detailsElement.style.display = display === 'none' ? 'block' : 'none';
 }
 
+function createCardElement(card) {
+    const cardElement = document.createElement('div');
+    cardElement.className = 'card-detail';
+    cardElement.innerHTML = '...'; // Existing card details HTML
 
+    const addToDeckButton = document.createElement('button');
+    addToDeckButton.textContent = 'Add to Deck';
+    addToDeckButton.onclick = function () { addToDeck(card.id); }; // Modify to pass card ID
+    cardElement.appendChild(addToDeckButton);
+    return cardElement;
+}
+
+function addToDeck(cardId) {
+    const deckName = prompt('Enter the deck name to add this card to:');
+    if (!deckName) return; // Exit if no input
+
+    const decks = JSON.parse(localStorage.getItem('decks') || '[]');
+    const deck = decks.find(d => d.name === deckName);
+    if (deck) {
+        if (!deck.cards.includes(cardId)) {
+            deck.cards.push(cardId);
+            localStorage.setItem('decks', JSON.stringify(decks));
+            alert('Card added to deck!');
+        } else {
+            alert('Card already in this deck!');
+        }
+    } else {
+        alert('Deck not found!');
+    }
+}
+
+function loadDecks() {
+    const decks = JSON.parse(localStorage.getItem('decks') || '[]');
+    const decksContainer = document.getElementById('decksContainer');
+    decksContainer.innerHTML = ''; // Clear previous content
+    decks.forEach(deck => {
+        const deckElement = document.createElement('div');
+        deckElement.className = 'deck';
+        deckElement.textContent = deck.name;
+        decksContainer.appendChild(deckElement);
+    });
+}
+
+function createNewDeck() {
+    const deckName = prompt('Enter new deck name:');
+    if (!deckName) return; // Exit if no input
+
+    const decks = JSON.parse(localStorage.getItem('decks') || '[]');
+    if (!decks.some(d => d.name === deckName)) {
+        decks.push({ name: deckName, cards: [] });
+        localStorage.setItem('decks', JSON.stringify(decks));
+        loadDecks(); // Refresh the deck list
+    } else {
+        alert('A deck with this name already exists!');
+    }
+}
