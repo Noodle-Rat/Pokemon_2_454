@@ -1,49 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WeatherApp.Services;
+using WeatherApp.Models;
+using WeatherApp.Controllers;
 
-namespace WeatherApp.Controllers
+[ApiController]
+[Route("api/[controller]")]
+public class CardsController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CardsController : ControllerBase
+    private readonly CardsService _cardsService;
+
+    public CardsController(CardsService cardsService)
     {
-        private readonly CardsService _cardsService;
+        _cardsService = cardsService;
+    }
 
-        public CardsController(CardsService cardsService)
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchCards([FromQuery] string name, [FromQuery] string type, [FromQuery] string rarity)
+    {
+        string jsonResult = await _cardsService.SearchCardsAsync(name, type, rarity);
+        if (jsonResult != "No cards found.")
         {
-            _cardsService = cardsService;
+            return Content(jsonResult, "application/json");
+        }
+        else
+        {
+            return NotFound(jsonResult);
+        }
+    }
+    [HttpGet("searchByName")]
+    public async Task<IActionResult> SearchCardsByName([FromQuery] string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return BadRequest("Name parameter is required.");
         }
 
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchCards([FromQuery] string name, [FromQuery] string type, [FromQuery] string rarity)
+        string jsonResult = await _cardsService.SearchCardsByNameAsync(name);
+        if (jsonResult != "No cards found.")
         {
-            string jsonResult = await _cardsService.SearchCardsAsync(name, type, rarity);
-            if (jsonResult != "No cards found.")
-            {
-                return Content(jsonResult, "application/json");
-            }
-            else
-            {
-                return NotFound(jsonResult);
-            }
+            return Content(jsonResult, "application/json");
         }
-        [HttpGet("searchByName")]
-        public async Task<IActionResult> SearchCardsByName([FromQuery] string name)
+        else
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                return BadRequest("Name parameter is required.");
-            }
-
-            string jsonResult = await _cardsService.SearchCardsByNameAsync(name);
-            if (jsonResult != "No cards found.")
-            {
-                return Content(jsonResult, "application/json");
-            }
-            else
-            {
-                return NotFound(jsonResult);
-            }
+            return NotFound(jsonResult);
         }
     }
 }
+

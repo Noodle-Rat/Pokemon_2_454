@@ -13,7 +13,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Card> Cards { get; set; }
     public DbSet<Deck> Decks { get; set; }
-    public DbSet<UserCard> UserCards { get; set; }
+    public DbSet<UserCardModel> UserCards { get; set; }
     public DbSet<DeckCard> DeckCards { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,7 +47,7 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(dc => dc.DeckId);
 
         // UserCard (Composite Key)
-        modelBuilder.Entity<UserCard>()
+        modelBuilder.Entity<UserCardModel>()
             .HasKey(uc => new { uc.UserId, uc.CardId });
 
         // DeckCard (Composite Key)

@@ -8,68 +8,49 @@ using WeatherApp.Services;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
-    private readonly IUserService _userService;  // Declare the IUserService
+    private readonly IUserService _userService;
 
-    // Modify the constructor to accept IUserService
-    public UsersController(ApplicationDbContext context, IUserService userService)
+    public UsersController(IUserService userService)
     {
-        _context = context;
-        _userService = userService;  // Initialize the IUserService
+        _userService = userService;
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto)
     {
-        if (_context.Users.Any(u => u.Username == dto.Username))
+        var success = await _userService.RegisterUserAsync(dto);
+        if (!success)
         {
             return BadRequest("Username is already taken.");
         }
 
-        CreatePasswordHash(dto.Password, out byte[] passwordHash);
-
-        var user = new User
-        {
-            Username = dto.Username,
-            PasswordHash = passwordHash,
-            FirstName = dto.FirstName,
-            LastName = dto.LastName,
-            Email = dto.Email
-        };
-
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-
         return Ok("User registered successfully");
-    }
-
-    private void CreatePasswordHash(string password, out byte[] passwordHash)
-    {
-        using (var hmac = new System.Security.Cryptography.HMACSHA512())
-        {
-            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-        }
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         var user = await _userService.AuthenticateUserAsync(loginDto.Username, loginDto.Password);
         if (user == null)
         {
             return Unauthorized("Invalid username or password.");
         }
 
-        // Assuming you have a method to handle authentication and setting up cookies or tokens
-        // Proceed with setting the authentication session or token
+        // Handle authentication and claims creation
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString())
+        };
+
+        var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");
+        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+        await HttpContext.SignInAsync("CookieAuth", claimsPrincipal);
+
         return Ok("Logged in successfully.");
     }
 }
+
 
 public class RegisterDto
 {

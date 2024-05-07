@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WeatherApp.Models; // Adjust the namespace to match your project structure
 
@@ -8,7 +11,7 @@ public interface IUserService
 {
     Task<bool> RegisterUserAsync(RegisterDto registerDto);
     Task<User> AuthenticateUserAsync(string username, string password);
-    Task<bool> ChangePasswordAsync(int userId, string oldPassword, string newPassword);
+    
 }
 
 public class UserService : IUserService
@@ -27,7 +30,7 @@ public class UserService : IUserService
             return false; // Username already taken
         }
 
-        CreatePasswordHash(registerDto.Password, out byte[] passwordHash);
+        var passwordHash = CreatePasswordHash(registerDto.Password);
 
         var user = new User
         {
@@ -48,47 +51,18 @@ public class UserService : IUserService
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
         if (user == null || !VerifyPasswordHash(password, user.PasswordHash))
         {
-            return null; // User not found or password does not match
+            return null; // Authentication failed
         }
-
-        // Optional: handle session or token creation here
-
         return user; // Authentication successful
     }
 
-    public async Task<bool> ChangePasswordAsync(int userId, string oldPassword, string newPassword)
+    private byte[] CreatePasswordHash(string password)
     {
-        var user = await _context.Users.FindAsync(userId);
-        if (user == null || !VerifyPasswordHash(oldPassword, user.PasswordHash))
-        {
-            return false; // User not found or old password does not match
-        }
-
-        CreatePasswordHash(newPassword, out byte[] newPasswordHash);
-        user.PasswordHash = newPasswordHash;
-        await _context.SaveChangesAsync();
-        return true;
-    }
-
-    private void CreatePasswordHash(string password, out byte[] passwordHash)
-    {
-        using (var hmac = new System.Security.Cryptography.HMACSHA512())
-        {
-            passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-        }
+        return PasswordHelper.CreatePasswordHash(password);
     }
 
     private bool VerifyPasswordHash(string password, byte[] storedHash)
     {
-        using (var hmac = new System.Security.Cryptography.HMACSHA512())
-        {
-            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != storedHash[i])
-                    return false;
-            }
-        }
-        return true;
+        return PasswordHelper.VerifyPasswordHash(password, storedHash);
     }
 }

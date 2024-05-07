@@ -28,6 +28,6 @@
 
         // Navigation properties
         public List<DeckCard> DeckCards { get; set; }
-        public List<UserCard> UserCards { get; set; }
+        public List<UserCardModel> UserCards { get; set; }
     }
 } 

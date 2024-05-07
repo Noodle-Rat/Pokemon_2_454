@@ -36,6 +36,52 @@ window.onload = function () {
     <p class="attribute"><strong>Regulation Mark:</strong> ${card.regulationMark || 'N/A'}</p>
 `;
 
+/*    console.log("Card ID:", card.id); // Should log the card ID
+
+    document.getElementById('addToCollectionBtn').onclick = function () {
+        addToCollection(card); // Pass the card to a function
+    };
+};
+
+function addToCollection(card) {
+    let userId = 1; // This should ideally be set dynamically based on logged-in user information
+
+    // The payload that will be sent to the server
+    const payload = {
+        UserId: userId,
+        CardId: card.id
+    };
+
+    console.log("Payload being sent:", JSON.stringify(payload));
+
+
+    fetch('/api/userCards/addCardToUserCollection', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => response.json().then(data => {
+            if (!response.ok) {
+                // Log or display more detailed error information from the server
+                console.error('Error:', data);
+                throw new Error(data.message || `Server responded with status: ${response.status}`);
+            }
+            return data;
+        }))
+        .then(data => {
+            console.log("Server Response:", data);
+            alert(data.message || "Card added successfully!");
+            window.location.href = 'cardCollections.html';
+        })
+        .catch(error => {
+            console.error('Fetch operation error:', error);
+            alert(error.message || 'Could not add card to collection. Please try again.');
+        });
+
+}
+*/
     document.getElementById('addToCollectionBtn').onclick = function () {
         const cardCollectionKey = 'cardCollection'; // Key for localStorage
         let cardCollection = localStorage.getItem(cardCollectionKey);
@@ -55,5 +101,6 @@ window.onload = function () {
     };
 
 };
+
 
 

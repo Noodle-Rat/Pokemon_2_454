@@ -11,7 +11,7 @@
 
         // Navigation properties
         public List<Deck> Decks { get; set; }
-        public List<UserCard> UserCards { get; set; }
+        public List<UserCardModel> UserCards { get; set; }
     }
 
 }

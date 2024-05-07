@@ -55,3 +55,14 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+app.UseRouting();
+
+// Ensure authentication and authorization are properly configured if needed
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();  // This enables attribute routing for controllers.
+});
