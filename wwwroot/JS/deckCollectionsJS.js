@@ -51,13 +51,40 @@ function createCardElement(card) {
             <p><strong>Regulation Mark:</strong> ${card.regulationMark}</p>
         </div>
     `;
+    // Container for buttons
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'button-container';
+
     const addToDeckButton = document.createElement('button');
     addToDeckButton.textContent = 'Add to Deck';
+    addToDeckButton.className = 'left-button';
     addToDeckButton.onclick = function () { addToDeck(card.id); };
-    cardElement.appendChild(addToDeckButton);
+
+    const removeFromCollectionButton = document.createElement('button');
+    removeFromCollectionButton.textContent = 'Remove';
+    removeFromCollectionButton.className = 'right-button';
+    removeFromCollectionButton.onclick = function () { removeFromCollection(card.id); };
+
+    // Append buttons to their container
+    buttonContainer.appendChild(addToDeckButton);
+    buttonContainer.appendChild(removeFromCollectionButton);
+
+    // Append the button container to the card element
+    cardElement.appendChild(buttonContainer);
 
     return cardElement;
 }
+
+function removeFromCollection(cardId) {
+    const cardCollectionKey = 'cardCollection';
+    let cardCollection = JSON.parse(localStorage.getItem(cardCollectionKey) || '[]');
+    const newCardCollection = cardCollection.filter(card => card.id !== cardId);
+    localStorage.setItem(cardCollectionKey, JSON.stringify(newCardCollection));
+
+    // Refresh the page or handle UI update
+    location.reload(); // This reloads the page to reflect changes. Alternatively, you can update the UI without reloading.
+}
+
 
 function loadDecks() {
     const decks = JSON.parse(localStorage.getItem('decks') || '[]');
@@ -103,3 +130,5 @@ function addToDeck(cardId) {
         alert('Deck not found!');
     }
 }
+
+

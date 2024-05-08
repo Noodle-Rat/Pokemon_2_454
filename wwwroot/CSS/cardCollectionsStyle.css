@@ -31,20 +31,22 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Deck styling */
-.deck {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: white;
-    text-align: center;
-    transition: transform 0.3s ease;
+/* Styling for section titles and alignment of buttons */
+.section-header {
+    display: flex;
+    justify-content: space-between; /* Space elements to the full width */
+    align-items: center; /* Vertically align elements */
+    background-color: #FFFFFF; /* White background for contrast */
+    padding: 10px 20px;
+    border-radius: 8px 8px 0 0; /* Rounded corners at the top of the section */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Additional spacing */
 }
 
-    .deck:hover {
-        transform: scale(1.05); /* Slight scale effect on hover */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow for hover effect */
-    }
+#decksContainer {
+    padding: 20px 20px 20px; /* Adjust padding to visually separate from header */
+}
+
 
 /* Grid setup for cards and decks to match the search page */
 #cardCollectionContainer, #decksContainer {
@@ -61,6 +63,7 @@ header {
     border: 1px solid #ccc;
     background-color: white;
     transition: transform 0.3s ease;
+    margin-bottom: 20px; /* Ensures space for buttons */
 }
 
     .card-detail:hover {
@@ -76,21 +79,20 @@ header {
 /* Card information popup styling */
 .card-info {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
+    top: 0;
+    left: 0;
+    width: 100%; /* Covers the image only */
     background: rgba(0, 0, 0, 0.9); /* Semi-transparent background */
     color: white;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 0 0 8px 8px; /* Rounded bottom corners */
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s, visibility 0.3s;
     z-index: 10;
     text-align: left;
     overflow-y: auto;
-    max-height: 80%;
+    max-height: 85%; /* Adjusted to cover image height only */
 }
 
 .card-detail:hover .card-info {
@@ -98,12 +100,6 @@ header {
     opacity: 1;
 }
 
-@media (max-width: 600px) {
-    /* Responsive adjustments for smaller screens */
-    .card-detail, .deck {
-        grid-template-columns: 1fr; /* Full width on small screens */
-    }
-}
 /* General button styling for a consistent, appealing look */
 button, .deck-link {
     background-color: #007AFF; /* Bright blue for active elements */
@@ -123,33 +119,15 @@ button, .deck-link {
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Added shadow for hover state */
     }
 
-/* Styling for section titles and alignment of buttons */
-.section-header {
+/* Container for buttons */
+.button-container {
     display: flex;
-    justify-content: space-between; /* Space elements to the full width */
-    align-items: center; /* Vertically align elements */
-    background-color: #FFFFFF; /* White background for contrast */
-    padding: 10px 20px;
-    border-radius: 8px 8px 0 0; /* Rounded corners at the top of the section */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: -10px; /* Overlap the section box to merge visually */
+    justify-content: space-between;
+    width: 100%; /* Ensure the container takes full width of the parent */
+    padding: 10px;
 }
 
-#decksContainer {
-    padding: 30px 20px 20px; /* Adjust padding to visually separate from header */
-}
-
-/* Grid setup adjustments if needed */
-#cardCollectionContainer, #decksContainer {
-    gap: 20px;
-}
-
-/* Specific styling for the decks section */
-.deck {
-    transition: transform 0.3s ease;
-}
-
-    .deck:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    .button-container button {
+        flex: 1; /* Each button takes up half the space of the container */
+        margin: 5px; /* Space between buttons */
     }
